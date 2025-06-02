@@ -1,20 +1,18 @@
-import { useState } from 'react';
+import { useStore } from '../hooks/useStore';
 
 const sendFormData = (formData) => {
     console.log(formData);
 };
 
 export const LoginForm = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        repeatedPassword: '',
-    });
+    const { getState, updateState } = useStore();
 
     const onSubmit = (event) => {
         event.preventDefault();
-        sendFormData(formData);
+        sendFormData(getState());
     };
+
+    const { email, password, repeatedPassword } = getState();
 
     return (
         <>
@@ -22,28 +20,24 @@ export const LoginForm = () => {
                 <input
                     type="email"
                     name="email"
-                    value={formData.email}
+                    value={email}
                     placeholder="Почта"
-                    onChange={({ target }) =>
-                        setFormData({ ...formData, email: target.value })
-                    }
+                    onChange={({ target }) => updateState('email', target.value)}
                 />
                 <input
                     type="password"
                     name="password"
-                    value={formData.password}
+                    value={password}
                     placeholder="Пароль"
-                    onChange={({ target }) =>
-                        setFormData({ ...formData, password: target.value })
-                    }
+                    onChange={({ target }) => updateState('password', target.value)}
                 />
                 <input
                     type="password"
                     name="repeatedPassword"
-                    value={formData.repeatedPassword}
+                    value={repeatedPassword}
                     placeholder="Повторите пароль"
                     onChange={({ target }) =>
-                        setFormData({ ...formData, repeatedPassword: target.value })
+                        updateState('repeatedPassword', target.value)
                     }
                 />
                 <button type="submit">Отправить</button>
