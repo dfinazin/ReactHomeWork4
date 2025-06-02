@@ -14,6 +14,10 @@ export const LoginForm = () => {
 
     const { email, password, repeatedPassword } = getState();
 
+    const onChange = ({ target }) => {
+        updateState(target.name, target.value);
+    };
+
     return (
         <>
             <form onSubmit={onSubmit}>
@@ -22,23 +26,21 @@ export const LoginForm = () => {
                     name="email"
                     value={email}
                     placeholder="Почта"
-                    onChange={({ target }) => updateState('email', target.value)}
+                    onChange={onChange}
                 />
                 <input
                     type="password"
                     name="password"
                     value={password}
                     placeholder="Пароль"
-                    onChange={({ target }) => updateState('password', target.value)}
+                    onChange={onChange}
                 />
                 <input
                     type="password"
                     name="repeatedPassword"
                     value={repeatedPassword}
                     placeholder="Повторите пароль"
-                    onChange={({ target }) =>
-                        updateState('repeatedPassword', target.value)
-                    }
+                    onChange={onChange}
                 />
                 <button type="submit">Отправить</button>
             </form>
