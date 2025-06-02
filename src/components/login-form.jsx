@@ -5,13 +5,15 @@ const sendFormData = (formData) => {
 };
 
 export const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [repeatedPassword, setRepeatedPassword] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        repeatedPassword: '',
+    });
 
     const onSubmit = (event) => {
         event.preventDefault();
-        sendFormData({ email, password, repeatedPassword });
+        sendFormData(formData);
     };
 
     return (
@@ -20,23 +22,29 @@ export const LoginForm = () => {
                 <input
                     type="email"
                     name="email"
-                    value={email}
+                    value={formData.email}
                     placeholder="Почта"
-                    onChange={({ target }) => setEmail(target.value)}
+                    onChange={({ target }) =>
+                        setFormData({ ...formData, email: target.value })
+                    }
                 />
                 <input
                     type="password"
                     name="password"
-                    value={password}
+                    value={formData.password}
                     placeholder="Пароль"
-                    onChange={({ target }) => setPassword(target.value)}
+                    onChange={({ target }) =>
+                        setFormData({ ...formData, password: target.value })
+                    }
                 />
                 <input
                     type="password"
                     name="repeatedPassword"
-                    value={repeatedPassword}
+                    value={formData.repeatedPassword}
                     placeholder="Повторите пароль"
-                    onChange={({ target }) => setRepeatedPassword(target.value)}
+                    onChange={({ target }) =>
+                        setFormData({ ...formData, repeatedPassword: target.value })
+                    }
                 />
                 <button type="submit">Отправить</button>
             </form>
