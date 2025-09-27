@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { LoginForm } from './components/login-form';
+import { LoginForm } from './components/login-form/login-form';
+import { SelectComponent } from './components/select-component/select-component';
 import './App.css';
 
 export const App = () => {
-    const [count, setCount] = useState(0);
-
     return (
         <>
-            <LoginForm></LoginForm>
+            <LoginForm />
+            <SelectComponent />
         </>
     );
 };

@@ -14,5 +14,8 @@ export const useStore = () => {
         updateState: (fieldName, newValue) => {
             setState({ ...state, [fieldName]: newValue });
         },
+        resetState: () => {
+            setState(initialState);
+        },
     };
 };
