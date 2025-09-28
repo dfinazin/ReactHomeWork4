@@ -1,5 +1,6 @@
 import { useStore } from '../../hooks/useStore';
 import { useFormErrors } from '../../hooks/useFormErrors';
+import { useEffect, useRef } from 'react';
 import { validateFieldsLimits } from './utilities/validate-fields-limits';
 import styles from './login-form.module.css';
 
@@ -10,6 +11,7 @@ const sendFormData = (formData) => {
 export const LoginForm = () => {
     const { getState, updateState, resetState } = useStore();
     const { getFormErrors, updateFormErrors } = useFormErrors();
+    const submitButtonRef = useRef(null);
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -53,7 +55,7 @@ export const LoginForm = () => {
                 if (getState().password !== getState().repeatedPassword) {
                     newError = 'Пароли не совпадают';
                 } else {
-                    newError = validateFieldsLimits(target.name, target.value, true);
+                    newError = validateFieldsLimits(target.name, target.value, false);
                 }
                 break;
             default:
@@ -69,9 +71,19 @@ export const LoginForm = () => {
             getFormErrors().repeatedPassword ||
             !getState().email ||
             !getState().password ||
-            !getState().repeatedPassword
+            !getState().repeatedPassword ||
+            getState().password !== getState().repeatedPassword
         );
     };
+
+    const isFormValid = isDisabledSubmit();
+
+    useEffect(() => {
+        if (!isFormValid) {
+            submitButtonRef.current.focus();
+        }
+    }, [isFormValid]);
+
     return (
         <>
             <form onSubmit={onSubmit}>
@@ -102,7 +114,11 @@ export const LoginForm = () => {
                 <button type="button" onClick={resetState}>
                     Сброс
                 </button>
-                <button type="submit" disabled={isDisabledSubmit()}>
+                <button
+                    type="submit"
+                    disabled={isDisabledSubmit()}
+                    ref={submitButtonRef}
+                >
                     Отправить
                 </button>
             </form>
