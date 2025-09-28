@@ -15,7 +15,6 @@ export const validateFieldsLimits = (fieldName, fieldValue, isOnChange) => {
             isOnChange === limitChars.max.isOnChange
         ) {
             errorMessage = limitChars.max.errorMessage;
-            console.log(limitChars, fieldValue.length);
         } else if (
             fieldValue.length < limitChars.min.value &&
             isOnChange === limitChars.min.isOnChange
@@ -23,6 +22,5 @@ export const validateFieldsLimits = (fieldName, fieldValue, isOnChange) => {
             errorMessage = limitChars.min.errorMessage;
         }
     }
-    console.log(fieldValue.length, errorMessage);
     return errorMessage;
 };

@@ -8,7 +8,6 @@ const initialState = {
 
 export const useStore = () => {
     const [state, setState] = useState(initialState);
-
     return {
         getState: () => state,
         updateState: (fieldName, newValue) => {
